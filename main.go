@@ -2,6 +2,10 @@
 Trabalho de Otimização 1 - M210
 Alunos: Bruno Quirino - 248
 		Ítalo Moura - 96
+
+Como executar o projeto:
+	go mod tidy
+    go run main.go
 */
 
 package main
