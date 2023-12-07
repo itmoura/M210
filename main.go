@@ -7,20 +7,20 @@ import (
 // Função principal para resolver o PL
 func main() {
 	//Coeficientes da função objetivo (maximização)
-	objectiveFunction := []float64{12, 60}
+	objectiveFunction := []float64{24, 22, 45}
 	for i := 0; i < len(objectiveFunction); i++ {
 		objectiveFunction[i] = -objectiveFunction[i]
 	}
 
 	// Coeficientes das restrições
 	constraints := [][]float64{
-		{6, 30},
-		{6, 45},
-		{6, 24},
+		{2, 1, 3},
+		{2, 1, 2},
+		{1, 1, 1},
 	}
 
 	// Lados direitos das restrições
-	rightHandSide := []float64{2160, 1320, 900}
+	rightHandSide := []float64{42, 40, 45}
 
 	// Chamando a função simplex para encontrar a solução
 	table, err := simplex(objectiveFunction, constraints, rightHandSide)
@@ -55,8 +55,6 @@ func main() {
 	for j := 0; j < len(constraints)+1; j++ {
 		lastLine = append(lastLine, table[j][numberOfColumns])
 	}
-
-	fmt.Println(optimalPosition)
 
 	fmt.Println("\nPonto Ótimo de Operação:")
 	fmt.Println("Z = ", lastLine[0])
@@ -96,6 +94,16 @@ func simplex(objectiveFunction []float64, constraints [][]float64, rightHandSide
 	newTable[0] = append(newTable[0], 0)
 	for i := 0; i < len(rightHandSide); i++ {
 		newTable[i+1] = append(newTable[i+1], rightHandSide[i])
+	}
+
+	// mostrar a tabela inicial
+	fmt.Println("\n\nTabela inicial:")
+	for i := range newTable {
+		fmt.Print("[")
+		for _, value := range newTable[i] {
+			fmt.Printf("%.2f ", value)
+		}
+		fmt.Println("]")
 	}
 
 	return calcSimplex(newTable, rightHandSide)
@@ -165,7 +173,7 @@ func calcSimplex(table [][]float64, rightHandSide []float64) ([][]float64, error
 	}
 
 	// mostrar a nova tabela
-	fmt.Println("\nNova tabela:")
+	fmt.Println("\n\nNova tabela:")
 	for i := range newTable {
 		fmt.Print("[")
 		for _, value := range newTable[i] {
