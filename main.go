@@ -1,3 +1,9 @@
+/*
+Trabalho de Otimização 1 - M210
+Alunos: Bruno Quirino - 248
+		Ítalo Moura - 96
+*/
+
 package main
 
 import (
